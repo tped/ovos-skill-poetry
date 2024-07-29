@@ -1,24 +1,26 @@
-# OVOSSkill
+# OVOS Poetry Skill
 
-Introductory Skill so that Skill Authors can see how an OVOS Skill is put together
+OVOS Skill that reads requested poetry.  Work-in-process
 
 ## About
 
-Information about your skill
+The poetry skill will recite poems from a pre-loaded dataset (json). Options for random poem, a favorite poem or maybe even a poem of the day
 
 ## Examples
 
-- "Hello world"
-- "How are you?"
-- "Thank you"
+- Tell me a poem
+- How about a poem
+- Read me a poem
+- Recite a poem
+- Read poem
 
 ## Credits
 
-authorName (@githubUsername)
+@tped
 
 ## Category
 
-TODO:
+TODO:  MUCH!
 
 ## Tags
 
