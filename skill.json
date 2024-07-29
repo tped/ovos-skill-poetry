@@ -3,11 +3,13 @@
     "url": "https://github.com/tped/ovos-skill-poetry",
     "summary": "",
     "short_description": null,
-    "description": "Information about your skill",
+    "description": "The poetry skill will recite poems from a pre-loaded dataset (json). Options for random poem, a favorite poem or maybe even a poem of the day",
     "examples": [
-        "Hello world",
-        "How are you?",
-        "Thank you"
+        "Tell me a poem",
+        "How about a poem",
+        "Read me a poem",
+        "Recite a poem",
+        "Read poem"
     ],
     "desktopFile": false,
     "warning": "",
@@ -33,19 +35,18 @@
     "branch": "master",
     "license": "Unknown",
     "icon": "",
-    "category": "TODO:",
+    "category": "TODO:  MUCH!",
     "categories": [
-        "TODO:"
+        "TODO:  MUCH!"
     ],
     "tags": [
         "ovos skill"
     ],
     "credits": [
-        "authorName",
-        "(@githubUsername)"
+        "tped"
     ],
     "skillname": "ovos-skill-poetry",
     "authorname": "tped",
     "foldername": null,
-    "ovosskill": "Introductory Skill so that Skill Authors can see how an OVOS Skill is put together"
+    "ovos poetry skill": "OVOS Skill that reads requested poetry.  Work-in-process"
 }
