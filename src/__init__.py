@@ -8,6 +8,7 @@ from ovos_workshop.skills import OVOSSkill
 import json
 import os
 import random
+import time
 # import sys
 
 # Optional - if you want to populate settings.json with default values, do so here
@@ -116,7 +117,13 @@ class PoetrySkill(OVOSSkill):
         self.speak("by " + str({poem["book_author"]}))
         self.speak("the poem is called " + str({poem["poem_title"]}))
         self.speak("and it goes like this ")
-        self.speak(str({poem['content']}))
+
+        # Split the content by newline and speak each line individually
+        lines = poem["content"].split('\n')
+        for line in lines:
+            if line.strip():  # Check if the line is not empty
+                self.speak(line.strip())
+                time.sleep(1)  # Add a slight pause between lines
 
     def stop(self):
         """Optional action to take when "stop" is requested by the user.
