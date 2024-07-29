@@ -1,4 +1,8 @@
 {
   "type": "@mikejgray/ovos-skill-projen.OVOSSkillProject",
-  "name": "ovos-skill-poetry"
+  "name": "ovos-skill-poetry",
+  "authorAddress": "tom@tpedersen.net",
+  "authorHandle": "tped",
+  "repositoryUrl": "https://github.com/tped/ovos-skill-poetry",
+  "skillClass": "PoetrySkill"
 }
