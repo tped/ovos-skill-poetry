@@ -1,1 +1,51 @@
-{}
+{
+    "title": "",
+    "url": "https://github.com/tped/ovos-skill-poetry",
+    "summary": "",
+    "short_description": null,
+    "description": "Information about your skill",
+    "examples": [
+        "Hello world",
+        "How are you?",
+        "Thank you"
+    ],
+    "desktopFile": false,
+    "warning": "",
+    "systemDeps": false,
+    "requirements": {
+        "python": [
+            "ovos-bus-client",
+            "ovos-plugin-manager",
+            "ovos-utils",
+            "ovos-workshop"
+        ],
+        "system": {},
+        "skill": []
+    },
+    "incompatible_skills": [],
+    "platforms": [
+        "i386",
+        "x86_64",
+        "ia64",
+        "arm64",
+        "arm"
+    ],
+    "branch": "master",
+    "license": "Unknown",
+    "icon": "",
+    "category": "TODO:",
+    "categories": [
+        "TODO:"
+    ],
+    "tags": [
+        "ovos skill"
+    ],
+    "credits": [
+        "authorName",
+        "(@githubUsername)"
+    ],
+    "skillname": "ovos-skill-poetry",
+    "authorname": "tped",
+    "foldername": null,
+    "ovosskill": "Introductory Skill so that Skill Authors can see how an OVOS Skill is put together"
+}
