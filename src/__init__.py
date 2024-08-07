@@ -13,8 +13,8 @@ import time
 
 # Optional - if you want to populate settings.json with default values, do so here
 DEFAULT_SETTINGS = {
-    "PoetrySetting1": True,
-    "PoetrySetting2": 50,
+    "PoetryFavorite": "<FavPoemDocID>",
+    "PoetrySetting": 50,
     "PoetryFilename": "src/data/poems/BrautiganPoems.json"
 }
 
@@ -53,6 +53,7 @@ class PoetrySkill(OVOSSkill):
 
                         for poem in section['POEMS']:
                             self.poems.append({
+                                "doc_id": poem["DOCID"],
                                 "book_title": book_title,
                                 "book_author": book_author,
                                 "section_title": section_title,
@@ -63,6 +64,7 @@ class PoetrySkill(OVOSSkill):
                 else:
                     for poem in data['DOC']['POEMS']:
                         self.poems.append({
+                            "doc_id": poem["DOCID"],
                             "book_title": book_title,
                             "book_author": book_author,
                             "section_title": None,
@@ -74,6 +76,14 @@ class PoetrySkill(OVOSSkill):
                 self.log.error("Invalid JSON structure: missing 'DOC'")
         except Exception as e:
             self.log.error(f"Error loading poems: {e}")
+
+    def find_poem_by_docid(self, docid):
+        for book in self.poems:
+            for section in book['sections']:
+                for poem in section['poems']:
+                    if poem['docid'] == docid:
+                        return book['title'], book['author'], poem['title'], poem['content']
+        return None
 
     def initialize(self):
         # merge default settings
@@ -103,17 +113,39 @@ class PoetrySkill(OVOSSkill):
         return self.settings.get("my_setting", "default_value")
 
     @intent_handler("FavoritePoem.intent")
-    def handle_how_are_you_intent(self, message):
+    def favorite_poem_intent(self, message):
         """This is a Padatious intent handler.
         It is triggered using a list of sample phrases."""
-        self.speak_dialog("I will soon tell you a favorite poem")
+        favorite_docid = self.settings.get("PoetryFavorite")
+        if not favorite_docid:
+            self.speak("I don't have a favorite poem at this time.")
+            return
+
+        result = self.find_poem_by_docid(favorite_docid)
+
+        if result:
+            # Unpack the returned tuple
+            book_title, book_author, poem_title, content = result
+            self.speak("Here's my current favorite poem.  It is from the book " + book_title + ".")
+            self.speak("by " + book_author + ".")
+            self.speak("the poem is called " + poem_title + ".")
+            self.speak("and it goes like this ")
+
+            # Split the content by newline and speak each line individually
+            lines = content.split('\n')
+            for line in lines:
+                if line.strip():  # Check if the line is not empty
+                    self.speak(line.strip())
+                    time.sleep(1)  # Add a slight pause between lines
+        else:
+            self.speak("I'm struggling to come up with a favorite poem!  Please try again later.")
 
     @intent_handler("ReadPoem.intent")
     def handle_tell_me_a_poem_intent(self, message):
         """This is a Padatious intent handler.
         It is triggered using a list of sample phrases."""
         poem = random.choice(self.poems)
-        self.speak("Here's one of my favorites from the book " + str({poem["book_title"]}))
+        self.speak("Here's a poem from the book " + str({poem["book_title"]}))
         self.speak("by " + str({poem["book_author"]}))
         self.speak("the poem is called " + str({poem["poem_title"]}))
         self.speak("and it goes like this ")
