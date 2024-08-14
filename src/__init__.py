@@ -68,11 +68,9 @@ class PoetrySkill(OVOSSkill):
             self.log.error(f"Error loading poems: {e}")
 
     def find_poem_by_docid(self, docid):
-        for book in self.poems:
-            for section in book['SECTIONS']:
-                for poem in section['POEMS']:
-                    if poem['DOCID'] == docid:
-                        return poem
+        for poem in self.poems:
+            if poem["doc_id"] == docid:
+                return poem
         return None
 
     def initialize(self):
@@ -115,7 +113,11 @@ class PoetrySkill(OVOSSkill):
 
         if result:
             # Unpack the returned tuple
-            book_title, book_author, poem_title, content = result
+            book_title = result["book_title"]
+            book_author = result["book_author"]
+            poem_title = result["poem_title"]
+            content = result["content"]
+
             self.speak("Here's my current favorite poem.  It is from the book " + book_title + ".")
             self.speak("by " + book_author + ".")
             self.speak("the poem is called " + poem_title + ".")
