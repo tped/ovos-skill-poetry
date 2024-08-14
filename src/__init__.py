@@ -15,7 +15,7 @@ import time
 DEFAULT_SETTINGS = {
     "PoetryFavorite": "<FavPoemDocID>",
     "PoetrySetting": 50,
-    "PoetryFilename": "src/data/poems/BrautiganPoems.json"
+    "PoetryFilename": "/home/ovos/.venvs/ovos/lib/python3.11/site-packages/ovos_skill_poetry/locale/en-us/Data/PoetryTest4-short.json"
 }
 
 
