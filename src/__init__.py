@@ -43,13 +43,13 @@ class PoetrySkill(OVOSSkill):
             with open(filepath, 'r') as file:
                 data = json.load(file)
 
-            if 'DOC' in data:
-                book_title = data['DOC']['TITLE'][0]
-                book_author = data['DOC']['AUTHOR'][0]
+            if 'LIBRARY' in data:
+                for book in data['LIBRARY']:
+                    book_title = book['BOOK_TITLE']
+                    book_author = book['BOOK_AUTHOR']
 
-                if 'SECTION' in data['DOC']:
-                    for section in data['DOC']['SECTION']:
-                        section_title = section['SECTIONTITLE'][0] if 'SECTIONTITLE' in section else None
+                    for section in book['SECTIONS']:
+                        section_title = section['SECTION_TITLE'] if section['SECTION_TITLE'] is not None else None
 
                         for poem in section['POEMS']:
                             self.poems.append({
@@ -57,23 +57,13 @@ class PoetrySkill(OVOSSkill):
                                 "book_title": book_title,
                                 "book_author": book_author,
                                 "section_title": section_title,
-                                "poem_title": poem['TITLE'][0] if 'TITLE' in poem else "Unknown Title",
-                                "poem_author": poem['AUTHOR'][0] if 'AUTHOR' in poem else book_author,
-                                "content": poem['CONTENT'][0]
+                                "poem_title": poem['TITLE'],
+                                "poem_author": poem['AUTHOR'] if poem['AUTHOR'] else book_author,
+                                "content": "\n".join(poem['CONTENT'])
                             })
-                else:
-                    for poem in data['DOC']['POEMS']:
-                        self.poems.append({
-                            "doc_id": poem["DOCID"],
-                            "book_title": book_title,
-                            "book_author": book_author,
-                            "section_title": None,
-                            "poem_title": poem['TITLE'][0] if 'TITLE' in poem else "Unknown Title",
-                            "poem_author": poem['AUTHOR'][0] if 'AUTHOR' in poem else book_author,
-                            "content": poem['CONTENT'][0]
-                        })
+
             else:
-                self.log.error("Invalid JSON structure: missing 'DOC'")
+                self.log.error("Invalid JSON structure: missing 'LIBRARY'")
         except Exception as e:
             self.log.error(f"Error loading poems: {e}")
 

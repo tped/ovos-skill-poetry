@@ -1,0 +1,135 @@
+{
+    "LIBRARY": [
+        {
+            "BOOK_TITLE": "The Pill Versus the Springhill Mine Disaster",
+            "BOOK_AUTHOR": "Richard Brautigan",
+            "SECTIONS": [
+                {
+                    "SECTION_TITLE": null,
+                    "POEMS": [
+                        {
+                            "DOCID": "tpvt:awob",
+                            "TITLE": "All Watched Over by Machines of Loving Grace",
+                            "AUTHOR": "Richard Brautigan",
+                            "CONTENT": [
+                                "I like to think (and",
+                                "the sooner the better!)",
+                                "of a cybernetic meadow",
+                                "where mammals and computers",
+                                "live together in mutually",
+                                "programming harmony",
+                                "like pure water",
+                                "touching clear sky.",
+                                "I like to think",
+                                "(right now please!)",
+                                "of a cybernetic forest",
+                                "filled with pines and electronics",
+                                "where deer stroll peacefully",
+                                "past computers",
+                                "as if they were flowers",
+                                "with spinning blossoms.",
+                                "I like to think",
+                                "(it has to be!)",
+                                "of a cybernetic ecology",
+                                "where we are free of our labors",
+                                "and joined back to nature,",
+                                "returned to our mammal",
+                                "brothers and sisters,",
+                                "and all watched over",
+                                "by machines of loving grace."
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "BOOK_TITLE": "Whispers of Dawn",
+            "BOOK_AUTHOR": "Emily Bright",
+            "SECTIONS": [
+                {
+                    "SECTION_TITLE": "First Light",
+                    "POEMS": [
+                        {
+                            "DOCID": "wodx:tflx",
+                            "TITLE": "The First Light",
+                            "AUTHOR": "Emily Bright",
+                            "CONTENT": [
+                                "The dawn breaks with a whisper,",
+                                "Soft and tender, pure and light,",
+                                "Casting hues of gold and amber,",
+                                "Turning dark to bright."
+                            ]
+                        },
+                        {
+                            "DOCID": "wodx:msxx",
+                            "TITLE": "Morning Song",
+                            "AUTHOR": "Emily Bright",
+                            "CONTENT": [
+                                "Birds sing their morning song,",
+                                "As the day begins anew,",
+                                "The sky a canvas stretching long,",
+                                "Painted in shades of blue."
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "BOOK_TITLE": "Echoes of the Past",
+            "BOOK_AUTHOR": "John Doe",
+            "SECTIONS": [
+                {
+                    "SECTION_TITLE": "Ancient Rhymes",
+                    "POEMS": [
+                        {
+                            "DOCID": "eotp:cdxx",
+                            "TITLE": "Childhood Days",
+                            "AUTHOR": "John Doe",
+                            "CONTENT": [
+                                "Days of old, when I was young,",
+                                "Laughter like a sweet refrain,",
+                                "In fields where childhood dreams were sung,",
+                                "We danced in sun and rain."
+                            ]
+                        },
+                        {
+                            "DOCID": "eotp:ftxx",
+                            "TITLE": "Forever Time",
+                            "AUTHOR": "John Doe",
+                            "CONTENT": [
+                                "Time flows like a gentle stream,",
+                                "Forever onward, never still,",
+                                "A tapestry of dreams and dreams,",
+                                "Woven with a silent thrill."
+                            ]
+                        },
+                        {
+                            "DOCID": "eotp:ftxx01",
+                            "TITLE": "Forever Time",
+                            "AUTHOR": "John Doe",
+                            "CONTENT": [
+                                "Time flows like a gentle stream,",
+                                "Forever onward, never still,",
+                                "A tapestry of dreams and dreams,",
+                                "Woven with a silent thrill."
+                            ]
+                        },
+                        {
+                            "DOCID": "eotp:ftxx02",
+                            "TITLE": "Forever Time",
+                            "AUTHOR": "John Doe",
+                            "CONTENT": [
+                                "Time flows like a gentle stream,",
+                                "Forever onward, never still,",
+                                "A tapestry of dreams and dreams,",
+                                "Woven with a silent thrill."
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
