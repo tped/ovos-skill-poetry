@@ -69,10 +69,10 @@ class PoetrySkill(OVOSSkill):
 
     def find_poem_by_docid(self, docid):
         for book in self.poems:
-            for section in book['sections']:
-                for poem in section['poems']:
-                    if poem['docid'] == docid:
-                        return book['title'], book['author'], poem['title'], poem['content']
+            for section in book['SECTIONS']:
+                for poem in section['POEMS']:
+                    if poem['DOCID'] == docid:
+                        return poem
         return None
 
     def initialize(self):
