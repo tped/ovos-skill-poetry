@@ -1,10 +1,10 @@
 # OVOS Poetry Skill
 
-OVOS Skill that reads requested poetry.  Work-in-process
+OVOS Skill that reads requested poetry.  
 
 ## About
 
-The poetry skill will recite poems from a pre-loaded dataset (json). Options for random poem, a favorite poem or maybe even a poem of the day
+The poetry skill will recite poems from a pre-loaded dataset (json). Random poem or a favorite poem (setting.json)
 
 ## Examples
 
@@ -13,7 +13,8 @@ The poetry skill will recite poems from a pre-loaded dataset (json). Options for
 - Read me a poem
 - Recite a poem
 - Read poem
-
+- Do you have a favorite poem
+- 
 ## Credits
 
 @tped

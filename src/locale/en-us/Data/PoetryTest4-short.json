@@ -108,23 +108,13 @@
                         {
                             "DOCID": "eotp:ftxx01",
                             "TITLE": "Forever Time",
-                            "AUTHOR": "John Doe",
+                            "AUTHOR": "Tom P",
                             "CONTENT": [
-                                "Time flows like a gentle stream,",
-                                "Forever onward, never still,",
-                                "A tapestry of dreams and dreams,",
-                                "Woven with a silent thrill."
-                            ]
-                        },
-                        {
-                            "DOCID": "eotp:ftxx02",
-                            "TITLE": "Forever Time",
-                            "AUTHOR": "John Doe",
-                            "CONTENT": [
-                                "Time flows like a gentle stream,",
-                                "Forever onward, never still,",
-                                "A tapestry of dreams and dreams,",
-                                "Woven with a silent thrill."
+                                "Time is a nonspatial continuum",
+                                "that is measured in terms of events",
+                                "which succeed one anther",
+                                "from past through present",
+                                "then into the future"
                             ]
                         }
                     ]
