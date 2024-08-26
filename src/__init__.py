@@ -32,6 +32,8 @@ class PoetrySkill(OVOSSkill):
         self.poems = []
         poem_file = self.settings.get('PoetryFilename')
         self.load_poems(poem_file)  # Update the path to your JSON file
+        self.last_docid = None
+        self.poem_count = len(self.poems)
 
     def load_poems(self, filepath):
         if not os.path.isfile(filepath):
@@ -111,10 +113,13 @@ class PoetrySkill(OVOSSkill):
         result = self.find_poem_by_docid(favorite_docid)
 
         if result:
+            # Remember we just recited this one
+            self.last_docid = favorite_docid
             # Unpack the returned tuple
             book_title = result["book_title"]
             book_author = result["book_author"]
             poem_title = result["poem_title"]
+            poem_author = result["author"]
             content = result["content"]
 
             self.speak("Here's my current favorite poem.  It is from the book " + book_title + ".", wait=True)
@@ -139,6 +144,11 @@ class PoetrySkill(OVOSSkill):
         """This is a Padatious intent handler.
         It is triggered using a list of sample phrases."""
         poem = random.choice(self.poems)
+        # Avoid reciting same poem 2 times in a row
+        if self.poem_count > 1:
+            while poem["doc_id"] == self.last_docid:
+                poem = random.choice(self.poems)
+        self.last_docid = poem["doc_id"]
         self.speak("Here's a poem from the book " + str({poem["book_title"]}), wait=True)
         self.speak("by " + str({poem["book_author"]}), wait=True)
         self.speak("the poem is called " + str({poem["poem_title"]}), wait=True)
