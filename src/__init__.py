@@ -30,6 +30,7 @@ class PoetrySkill(OVOSSkill):
         super().__init__(*args, bus=bus, **kwargs)
         self.learning = True
         self.poems = []
+        self.is_reciting = False  # Track recitation state
         poem_file = self.settings.get('PoetryFilename')
         self.load_poems(poem_file)  # Update the path to your JSON file
         self.last_docid = None
@@ -105,69 +106,101 @@ class PoetrySkill(OVOSSkill):
     def favorite_poem_intent(self, message):
         """This is a Padatious intent handler.
         It is triggered using a list of sample phrases."""
-        favorite_docid = self.settings.get("PoetryFavorite")
-        if not favorite_docid:
-            self.speak("I don't have a favorite poem at this time.")
-            return
+        self.is_reciting = True  # Set flag at start
+        try:
+            favorite_docid = self.settings.get("PoetryFavorite")
+            if not favorite_docid:
+                self.speak("I don't have a favorite poem at this time.")
+                return
 
-        result = self.find_poem_by_docid(favorite_docid)
+            result = self.find_poem_by_docid(favorite_docid)
 
-        if result:
-            # Remember we just recited this one
-            self.last_docid = favorite_docid
-            # Unpack the returned tuple
-            book_title = result["book_title"]
-            book_author = result["book_author"]
-            poem_title = result["poem_title"]
-            poem_author = result["author"]
-            content = result["content"]
+            if result:
+                # Remember we just recited this one
+                self.last_docid = favorite_docid
+                # Unpack the returned tuple
+                book_title = result["book_title"]
+                book_author = result["book_author"]
+                poem_title = result["poem_title"]
+                poem_author = result["author"]
+                content = result["content"]
 
-            self.speak("Here's my current favorite poem.  It is from the book " + book_title + ".", wait=True)
-            self.speak("by " + book_author + ".", wait=True)
-            self.speak("the poem is called " + poem_title + ".", wait=True)
+                # Check to see if we should continue talking before each speak
+                if not self.is_reciting:
+                    return
+                self.speak("Here's my current favorite poem.  It is from the book " + book_title + ".", wait=True)
+                if not self.is_reciting:
+                    return
+                self.speak("by " + book_author + ".", wait=True)
+                if not self.is_reciting:
+                    return
+                self.speak("the poem is called " + poem_title + ".", wait=True)
+                if not self.is_reciting:
+                    return
+                self.speak("and it goes like this ", wait=True)
+
+                # Split the content by newline and speak each line individually
+                lines = content.split('\n')
+                for i, line in enumerate(lines):
+                    if not self.is_reciting:
+                        return
+                    if line.strip():
+                        if i == len(lines) - 1:  # Last line
+                            self.speak(line.strip())
+                        else:
+                            self.speak(line.strip(), wait=True)
+                        time.sleep(1)
+            else:
+                self.speak("I'm struggling to come up with a favorite poem!  Please try again later.")
+
+        finally:
+            self.is_reciting = False  # Reset flag when done
+
+    @intent_handler("ReadPoem.intent")
+    def handle_tell_me_a_poem_intent(self, message):
+        """This is a Padatious intent handler.
+        It is triggered using a list of sample phrases."""
+        self.is_reciting = True  # Set state to know we are currently reciting a poem
+        try:
+            poem = random.choice(self.poems)
+            # Avoid reciting same poem 2 times in a row
+            if self.poem_count > 1:
+                while poem["doc_id"] == self.last_docid:
+                    poem = random.choice(self.poems)
+            self.last_docid = poem["doc_id"]
+
+            # Check if stopped before each speak
+            if not self.is_reciting:
+                return
+            self.speak("Here's a poem from the book " + str({poem["book_title"]}), wait=True)
+            if not self.is_reciting:
+                return
+            self.speak("by " + str({poem["book_author"]}), wait=True)
+            if not self.is_reciting:
+                return
+            self.speak("the poem is called " + str({poem["poem_title"]}), wait=True)
+            if not self.is_reciting:
+                return
             self.speak("and it goes like this ", wait=True)
 
             # Split the content by newline and speak each line individually
-            lines = content.split('\n')
+            lines = poem["content"].split('\n')
             for i, line in enumerate(lines):
+                if not self.is_reciting:
+                    return
                 if line.strip():
                     if i == len(lines) - 1:  # Last line
                         self.speak(line.strip())
                     else:
                         self.speak(line.strip(), wait=True)
                     time.sleep(1)
-        else:
-            self.speak("I'm struggling to come up with a favorite poem!  Please try again later.")
-
-    @intent_handler("ReadPoem.intent")
-    def handle_tell_me_a_poem_intent(self, message):
-        """This is a Padatious intent handler.
-        It is triggered using a list of sample phrases."""
-        poem = random.choice(self.poems)
-        # Avoid reciting same poem 2 times in a row
-        if self.poem_count > 1:
-            while poem["doc_id"] == self.last_docid:
-                poem = random.choice(self.poems)
-        self.last_docid = poem["doc_id"]
-        self.speak("Here's a poem from the book " + str({poem["book_title"]}), wait=True)
-        self.speak("by " + str({poem["book_author"]}), wait=True)
-        self.speak("the poem is called " + str({poem["poem_title"]}), wait=True)
-        self.speak("and it goes like this ", wait=True)
-
-        # Split the content by newline and speak each line individually
-        lines = poem["content"].split('\n')
-        for i, line in enumerate(lines):
-            if line.strip():
-                if i == len(lines) - 1:  # Last line
-                    self.speak(line.strip())
-                else:
-                    self.speak(line.strip(), wait=True)
-                time.sleep(1)
+        finally:
+            self.is_reciting = False    #  Reset reciting state when done
 
     def stop(self):
-        """Optional action to take when "stop" is requested by the user.
-        This method should return True if it stopped something or
-        False (or None) otherwise.
-        If not relevant to your skill, feel free to remove.
-        """
-        return
+        """Handle Stop request from the user ... stops long-winded poems"""
+        if self.is_reciting:
+            self.is_reciting = False
+            self.speak_dialog("poem.stopped")  # Optional: Add feedback
+            return True
+        return False
