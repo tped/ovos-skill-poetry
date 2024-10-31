@@ -122,7 +122,7 @@ class PoetrySkill(OVOSSkill):
                 book_title = result["book_title"]
                 book_author = result["book_author"]
                 poem_title = result["poem_title"]
-                poem_author = result["author"]
+                poem_author = result["poem_author"]
                 content = result["content"]
 
                 # Check to see if we should continue talking before each speak
