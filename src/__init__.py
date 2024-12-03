@@ -138,7 +138,7 @@ class PoetrySkill(OVOSSkill):
                 self.speak("the poem is called " + poem_title + ".", wait=True)
                 if not self.is_reciting:
                     return
-                self.speak("and it goes like this ", wait=True)
+                self.speak("and it goes like this! ", wait=True)
 
                 # Split the content by newline and speak each line individually
                 lines = content.split('\n')
@@ -182,7 +182,7 @@ class PoetrySkill(OVOSSkill):
             self.speak("the poem is called " + str({poem["poem_title"]}), wait=True)
             if not self.is_reciting:
                 return
-            self.speak("and it goes like this ", wait=True)
+            self.speak("and it goes like this ... ", wait=True)
 
             # Split the content by newline and speak each line individually
             lines = poem["content"].split('\n')
