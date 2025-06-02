@@ -10,6 +10,7 @@ import json
 import os
 import random
 import time
+
 # import sys
 
 # Optional - if you want to populate settings.json with default values, do so here
@@ -20,7 +21,7 @@ DEFAULT_SETTINGS = {
 
 
 class PoetrySkill(OVOSSkill):
-    def __init__(self, *args, bus=None, **kwargs):
+    def __init__(self, *args, **kwargs):
         """The __init__ method is called when the Skill is first constructed.
         Note that self.bus, self.skill_id, self.settings, and
         other base class settings are only available after the call to super().
@@ -28,7 +29,7 @@ class PoetrySkill(OVOSSkill):
         This is a good place to load and pre-process any data needed by your
         Skill, ideally after the super() call.
         """
-        super().__init__(*args, bus=bus, **kwargs)
+        super().__init__(*args, **kwargs)
         self.learning = True
         self.poems = []
         self.is_reciting = False  # Track recitation state
@@ -196,7 +197,7 @@ class PoetrySkill(OVOSSkill):
                         self.speak(line.strip(), wait=True)
                     time.sleep(1)
         finally:
-            self.is_reciting = False    #  Reset reciting state when done
+            self.is_reciting = False   # Reset reciting state when done
 
     def stop(self):
         """Handle Stop request from the user ... stops long-winded poems"""
