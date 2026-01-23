@@ -1,5 +1,5 @@
-# Last fix:  Fav Poem
 from ovos_utils import classproperty
+from ovos_utils.log import LOG
 from ovos_utils.process_utils import RuntimeRequirements
 # from ovos_workshop.intents import IntentBuilder
 from ovos_workshop.decorators import intent_handler
@@ -13,10 +13,19 @@ import time
 
 # import sys
 
+from .version import (
+    VERSION_MAJOR,
+    VERSION_MINOR,
+    VERSION_BUILD,
+    VERSION_ALPHA
+)
+
 # Optional - if you want to populate settings.json with default values, do so here
 DEFAULT_SETTINGS = {
     "PoetryFavorite": "eotp:ftxx01",
-    "PoetryFilename": "/home/ovos/.venvs/ovos/lib/python3.11/site-packages/ovos_skill_poetry/locale/en-us/Data/PoetryTest4-short.json"
+    "PoetryFilename": "/home/ovos/.venvs/ovos/lib/python3.11/site-packages/ovos_skill_poetry/locale/en-us/Data"
+                      "/PoetryTest4-short.json",
+    "log_level": "WARNING"
 }
 
 
@@ -34,6 +43,7 @@ class PoetrySkill(OVOSSkill):
         self.poems = []
         self.is_reciting = False  # Track recitation state
         poem_file = self.settings.get('PoetryFilename')
+        self.log_level = self.settings.get("log_level", "INFO")
         self.load_poems(poem_file)  # Update the path to your JSON file
         self.last_docid = None
         self.poem_count = len(self.poems)
@@ -77,10 +87,37 @@ class PoetrySkill(OVOSSkill):
                 return poem
         return None
 
+    @staticmethod
+    def skill_version():
+
+        version_string = f"{VERSION_MAJOR}.{VERSION_MINOR}.{VERSION_BUILD}"
+        if VERSION_ALPHA and int(VERSION_ALPHA) > 0:
+            version_string += f"a{VERSION_ALPHA}"
+        return version_string
+
     def initialize(self):
+        LOG.debug("initialize() called")
+
+        # noinspection PyUnresolvedReferences
+        self.register_homescreen_example("Read me a poem")
+        # noinspection PyUnresolvedReferences
+        self.register_homescreen_example("Tell me your favorite poem")
+
         # merge default settings
         # self.settings is a jsondb, which extends the dict class and adds helpers like merge
         self.settings.merge(DEFAULT_SETTINGS, new_only=True)
+        self.log_level = self.settings.get("log_level", "INFO")
+
+        # Speak version if log_level != INFO
+        if self.log_level.upper() != "INFO":
+            ver = self.skill_version()
+            spoken_version = ver.replace("a", " alpha ")
+            self.speak(
+                f"Poetry skill, version {spoken_version}, initialized",
+                wait=False
+            )
+
+        LOG.info(f"Poetry Skill version={self.skill_version()}")
 
     @classproperty
     def runtime_requirements(self):
@@ -105,7 +142,7 @@ class PoetrySkill(OVOSSkill):
         return self.settings.get("my_setting", "default_value")
 
     @intent_handler("FavoritePoem.intent")
-    def favorite_poem_intent(self, message):
+    def favorite_poem_intent(self):
         """This is a Padatious intent handler.
         It is triggered using a list of sample phrases."""
         self.is_reciting = True  # Set flag at start
@@ -124,7 +161,7 @@ class PoetrySkill(OVOSSkill):
                 book_title = result["book_title"]
                 book_author = result["book_author"]
                 poem_title = result["poem_title"]
-                poem_author = result["poem_author"]
+                # poem_author = result["poem_author"]
                 content = result["content"]
 
                 # Check to see if we should continue talking before each speak
@@ -159,7 +196,7 @@ class PoetrySkill(OVOSSkill):
             self.is_reciting = False  # Reset flag when done
 
     @intent_handler("ReadPoem.intent")
-    def handle_tell_me_a_poem_intent(self, message):
+    def handle_tell_me_a_poem_intent(self):
         """This is a Padatious intent handler.
         It is triggered using a list of sample phrases."""
         self.is_reciting = True  # Set state to know we are currently reciting a poem
