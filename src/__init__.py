@@ -98,11 +98,6 @@ class PoetrySkill(OVOSSkill):
     def initialize(self):
         LOG.debug("initialize() called")
 
-        # noinspection PyUnresolvedReferences
-        self.gui.register_homescreen_example("Read me a poem")
-        # noinspection PyUnresolvedReferences
-        self.gui.register_homescreen_example("Tell me your favorite poem")
-
         # merge default settings
         # self.settings is a jsondb, which extends the dict class and adds helpers like merge
         self.settings.merge(DEFAULT_SETTINGS, new_only=True)
