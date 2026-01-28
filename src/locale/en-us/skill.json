@@ -1,0 +1,15 @@
+{
+    "skill_id": "ovos-skill-poetry.tped",
+    "source": "https://github.com/tped/ovos-skill-poetry",
+    "description": "The poetry skill will recite poems from a pre-loaded dataset (json). Options for random poem, a favorite poem or maybe even a poem of the day",
+    "examples": [
+        "Tell me a poem",
+        "How about a poem",
+        "Read me a poem",
+        "Recite a poem",
+        "Read poem"
+    ],
+    "tags": [
+        "Poetry"
+    ]
+}
