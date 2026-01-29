@@ -1,5 +1,5 @@
 {
-    "description": "The poetry skill will recite poems from a pre-loaded dataset (json). Random poem or a favorite poem (setting.json)",
+    "description": "The poetry skill will recite poems from a pre-loaded dataset (json). Random poem or a favorite poem.",
     "examples": [
         "Tell me a poem",
         "How about a poem",
