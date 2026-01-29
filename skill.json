@@ -1,29 +1,45 @@
 {
-    "title": "",
-    "url": "https://github.com/tped/ovos-skill-poetry",
-    "summary": "",
-    "short_description": null,
-    "description": "The poetry skill will recite poems from a pre-loaded dataset (json). Options for random poem, a favorite poem or maybe even a poem of the day",
+    "description": "The poetry skill will recite poems from a pre-loaded dataset (json). Random poem or a favorite poem (setting.json)",
     "examples": [
         "Tell me a poem",
         "How about a poem",
         "Read me a poem",
         "Recite a poem",
-        "Read poem"
+        "Read poem",
+        "Do you have a favorite poem"
     ],
-    "desktopFile": false,
-    "warning": "",
-    "systemDeps": false,
+    "credits": [
+        "TODO: Add 'author' to .projenrc.json and run pj"
+    ],
+    "categories": [
+        "Entertainment"
+    ],
+    "tags": "ovos skill voice assistant",
+    "category": "Entertainment",
+    "package_name": "ovos-skill-poetry",
+    "pip_spec": "ovos-skill-poetry",
+    "license": "# TODO: Add 'license' to .projenrc.json and run pj",
+    "author": "TODO: Add 'author' to .projenrc.json and run pj",
+    "version": "1.0.5a2",
+    "url": "https://github.com/tped/ovos-skill-poetry",
+    "skill_id": "ovos-skill-poetry.tped=ovos_skill_poetry:PoetrySkill",
+    "skillname": "ovos-skill-poetry",
+    "authorname": "tped",
+    "name": "ovos-skill-poetry",
+    "title": "ovos-skill-poetry",
     "requirements": {
         "python": [
-            "ovos-bus-client",
-            "ovos-plugin-manager",
             "ovos-utils",
-            "ovos-workshop"
+            "ovos-bus-client",
+            "ovos-workshop",
+            "ovos-plugin-manager"
         ],
         "system": {},
         "skill": []
     },
+    "desktopFile": false,
+    "warning": "",
+    "systemDeps": false,
     "incompatible_skills": [],
     "platforms": [
         "i386",
@@ -33,20 +49,6 @@
         "arm"
     ],
     "branch": "master",
-    "license": "MIT",
-    "icon": "",
-    "category": "TODO:  MUCH!",
-    "categories": [
-        "TODO:  MUCH!"
-    ],
-    "tags": [
-        "ovos skill"
-    ],
-    "credits": [
-        "tped"
-    ],
-    "skillname": "ovos-skill-poetry",
-    "authorname": "tped",
     "foldername": null,
-    "ovos poetry skill": "OVOS Skill that reads requested poetry.  Work-in-process"
+    "short_description": null
 }
