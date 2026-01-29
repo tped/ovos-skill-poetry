@@ -20,7 +20,7 @@
     "pip_spec": "ovos-skill-poetry",
     "license": "# TODO: Add 'license' to .projenrc.json and run pj",
     "author": "TODO: Add 'author' to .projenrc.json and run pj",
-    "version": "1.0.5a2",
+    "version": "1.0.6a2",
     "url": "https://github.com/tped/ovos-skill-poetry",
     "skill_id": "ovos-skill-poetry.tped=ovos_skill_poetry:PoetrySkill",
     "skillname": "ovos-skill-poetry",
