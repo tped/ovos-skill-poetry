@@ -1,5 +1,4 @@
 from ovos_utils import classproperty
-from ovos_utils.log import LOG
 from ovos_utils.process_utils import RuntimeRequirements
 # from ovos_workshop.intents import IntentBuilder
 from ovos_workshop.decorators import intent_handler
@@ -17,7 +16,8 @@ from .version import (
     VERSION_MAJOR,
     VERSION_MINOR,
     VERSION_BUILD,
-    VERSION_ALPHA
+    VERSION_ALPHA,
+    VERSION_TAG
 )
 
 # Optional - if you want to populate settings.json with default values, do so here
@@ -25,7 +25,7 @@ DEFAULT_SETTINGS = {
     "PoetryFavorite": "eotp:ftxx01",
     "PoetryFilename": "/home/ovos/.venvs/ovos/lib/python3.11/site-packages/ovos_skill_poetry/locale/en-us/Data"
                       "/PoetryTest4-short.json",
-    "log_level": "WARNING"
+    "log_level": "INFO"
 }
 
 
@@ -96,23 +96,23 @@ class PoetrySkill(OVOSSkill):
         return version_string
 
     def initialize(self):
-        LOG.debug("initialize() called")
-
         # merge default settings
         # self.settings is a jsondb, which extends the dict class and adds helpers like merge
         self.settings.merge(DEFAULT_SETTINGS, new_only=True)
         self.log_level = self.settings.get("log_level", "INFO")
 
-        # Speak version if log_level != INFO
-        if self.log_level.upper() != "INFO":
-            ver = self.skill_version()
-            spoken_version = ver.replace("a", " alpha ")
-            self.speak(
-                f"Poetry skill, version {spoken_version}, initialized",
-                wait=False
-            )
+        self.log.info(f"Poetry Skill version={self.skill_version()}")
 
-        LOG.info(f"Poetry Skill version={self.skill_version()}")
+        # Announce version and tag only when skill-level debug is on
+        if self.log_level.upper() == "DEBUG":
+            self._announce_version()
+
+    def _announce_version(self):
+        spoken_version = self.skill_version().replace(".", " point ").replace("a", " alpha ")
+        self.speak(
+            f"Poetry skill, version {spoken_version}, {VERSION_TAG}, initialized",
+            wait=False
+        )
 
     @classproperty
     def runtime_requirements(self):

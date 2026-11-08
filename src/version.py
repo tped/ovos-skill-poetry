@@ -2,3 +2,4 @@ VERSION_MAJOR = 1
 VERSION_MINOR = 0
 VERSION_BUILD = 6
 VERSION_ALPHA = 2
+VERSION_TAG = "Skill-Level Debug & Standardized Version Announcement"
